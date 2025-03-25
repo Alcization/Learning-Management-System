@@ -1,0 +1,17 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+    	allow create, update, delete: if isRole("admin");
+      allow read: if (isLoggedIn() && request.auth.uid == userId) || isRole("admin");
+    }
+  }
+  function isLoggedIn(){
+    return request.auth != null
+  }
+  function isRole(role){
+    return isLoggedIn() && get(/database/$(database)/documents/users/$(request.auth.uid)).data.role == role
+  }
+}
+

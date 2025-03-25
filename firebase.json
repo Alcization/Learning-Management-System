@@ -1,0 +1,22 @@
+{
+  "hosting": {
+    "public": "./dist",
+    "cleanUrls": true,
+    "rewrites": [
+      {
+        "source": "/**", 
+        "destination": "/index.html"
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "predeploy": ["npm run build"]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}
